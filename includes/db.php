@@ -10,8 +10,8 @@ foreach ($db as $key => $value) {
 
 $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-if ($connection) {
-    echo "We are connected";
-} else {
-    die("Database connection FAILED" . mysqli_connect_error()); // or mysqli_error($connection)
-}
+// if ($connection) {
+//     echo "We are connected";
+// } else {
+//     die("Database connection FAILED" . mysqli_connect_error()); // or mysqli_error($connection)
+// }
