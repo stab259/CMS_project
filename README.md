@@ -1,1 +1,1 @@
-# CMS_project
+# A Content Management System (languages: PHP...)
