@@ -90,6 +90,6 @@ if (isset($_POST['edit_user'])) {
         <input type="password" value="<?php echo $user_password; ?>" class="form-control" name="user_password">
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" name="edit_user" value="Save User">
+        <input type="submit" class="btn btn-primary" name="edit_user" value="Update User">
     </div>
 </form>
