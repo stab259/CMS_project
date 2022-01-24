@@ -29,6 +29,7 @@ if (isset($_POST['update_post'])) {
 
     $post_content = $_POST['post_content'];
     $post_content = mysqli_real_escape_string($connection, $post_content);
+    // Or use htmlentities() vs html_entity_decode()
 
     $post_image = $_FILES['image']['name'];
     $post_image_temp = $_FILES['image']['tmp_name'];
@@ -112,7 +113,7 @@ if (isset($_POST['update_post'])) {
     </div>
     <div class="form-group">
         <label for="post_content">Post Content</label>
-        <textarea name="post_content" id="" cols="30" rows="10" class="form-control"><?php echo $post_content ?></textarea>
+        <textarea name="post_content" id="summernote" cols="30" rows="10" class="form-control"><?php echo $post_content ?></textarea>
     </div>
     <div class="form-group">
         <input type="submit" class="btn btn-primary" name="update_post" value="Publish Post">
