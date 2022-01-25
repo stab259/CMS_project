@@ -36,6 +36,13 @@
                  * So we can't use substr to get brief content now.
                  */
 
+                $post_brief_content = $post_content;
+                $post_brief_content = preg_replace('/<(.*?)>/', '', $post_brief_content);
+                $post_brief_content = substr($post_brief_content, 0, 100);
+                /* Use preg_replace() to get String only 
+                 * and then sub that String to get Brief content
+                 */
+
                 $post_status = $row['post_status'];
 
                 if ($post_status === 'published') {
@@ -51,10 +58,12 @@
                     </p>
                     <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
                     <hr>
-                    <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
+                    <a href="post.php?p_id=<?php echo $post_id ?>">
+                        <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
+                    </a>
                     <hr>
-                    <!-- <p><?php echo $post_content; ?></p> -->
-                    <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <p><?php echo $post_brief_content; ?></p>
+                    <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                     <hr>
 
