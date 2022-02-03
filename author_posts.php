@@ -32,24 +32,28 @@
                 $post_date = $row['post_date'];
                 $post_image = $row['post_image'];
                 $post_content = $row['post_content'];
+                $post_status = $row['post_status'];
+
+                if ($post_status === 'published') {
             ?>
 
-                <!-- Blog Post -->
-                <h2>
-                    <a href="#"><?php echo $post_title; ?></a>
-                </h2>
-                <p class="lead">
-                    All posts by <?php echo $post_author; ?>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
-                <hr>
-                <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
-                <hr>
-                <p><?php echo $post_content; ?></p>
+                    <!-- Blog Post -->
+                    <h2>
+                        <a href="#"><?php echo $post_title; ?></a>
+                    </h2>
+                    <p class="lead">
+                        All posts by <?php echo $post_author; ?>
+                    </p>
+                    <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
+                    <hr>
+                    <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
+                    <hr>
+                    <p><?php echo $post_content; ?></p>
 
-                <hr>
+                    <hr>
 
             <?php
+                }
             }
             ?>
 
