@@ -1,4 +1,3 @@
-<?php include "includes/db.php" ?>
 <?php include "includes/header.php" ?>
 
 <!-- Navigation -->
@@ -95,8 +94,8 @@
                         echo "<script>alert('Fields cannot be empty')</script>";
                     }
                 }
-            }
-
+                redirect("post.php?p_id=$the_post_id");
+            } // end of if set check
             ?>
 
             <!-- Comments Form -->
