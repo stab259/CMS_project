@@ -17,39 +17,42 @@ if (isset($_SESSION['username'])) {
         $user_image = $row['user_image'];
         $user_role = $row['user_role'];
     }
+
+    if (isset($_POST['edit_user'])) {
+        $user_firstname = $_POST['user_firstname'];
+        $user_lastname = $_POST['user_lastname'];
+        $username = $_POST['username'];
+        $user_email = $_POST['user_email'];
+        $user_password = $_POST['user_password'];
+
+
+        $query = "UPDATE users SET ";
+        $query .= "user_firstname = '{$user_firstname}', ";
+        $query .= "user_lastname = '{$user_lastname}', ";
+        $query .= "username = '{$username}', ";
+        $query .= "user_email = '{$user_email}' ";
+
+        if (!empty($user_password)) {
+            $query_password = "SELECT user_password FROM users WHERE username = '{$the_username}' ";
+            $get_user_query = mysqli_query($connection, $query_password);
+            confirmQuery($get_user_query);
+
+            $row = mysqli_fetch_array($get_user_query);
+            $db_user_password = $row['user_password'];
+
+            if ($user_password != $db_user_password) {
+                echo $user_password;
+                echo $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
+                $query .= ", user_password = '{$hashed_password}' ";
+            }
+        }
+
+        $query .= "WHERE username = '{$the_username}' ";
+        $edit_user_query = mysqli_query($connection, $query);
+        confirmQuery($edit_user_query);
+    }
 }
-?>
 
-<?php
-
-if (isset($_POST['edit_user'])) {
-    $user_firstname = $_POST['user_firstname'];
-    $user_lastname = $_POST['user_lastname'];
-    $user_role = $_POST['user_role'];
-
-    // $post_image = $_FILES['image']['name'];
-    // $post_image_temp = $_FILES['image']['tmp_name'];
-
-    $username = $_POST['username'];
-    $user_email = $_POST['user_email'];
-    $user_password = $_POST['user_password'];
-    // $post_date = date('d-m-y');
-
-    // move_uploaded_file($post_image_temp, "../images/$post_image");
-
-    $query = "UPDATE users SET ";
-    $query .= "user_firstname = '{$user_firstname}', ";
-    $query .= "user_lastname = '{$user_lastname}', ";
-    $query .= "user_role = '{$user_role}', ";
-    $query .= "username = '{$username}', ";
-    $query .= "user_email = '{$user_email}', ";
-    $query .= "user_password = '{$user_password}' ";
-    $query .= "WHERE username = '{$the_username}' ";
-
-    $edit_user_query = mysqli_query($connection, $query);
-
-    confirmQuery($edit_user_query);
-}
 
 ?>
 
@@ -81,24 +84,6 @@ if (isset($_POST['edit_user'])) {
                         <input type="text" value="<?php echo $user_lastname; ?>" class="form-control" name="user_lastname">
                     </div>
                     <div class="form-group">
-                        <select name="user_role" id="user_role">
-                            <option value="<?php echo $user_role; ?>"><?php echo $user_role; ?></option>
-                            <?php
-
-                            if ($user_role == 'admin') {
-                                echo "<option value='subscriber'>subscriber</option>";
-                            } else {
-                                echo "<option value='admin'>admin</option>";
-                            }
-
-                            ?>
-                        </select>
-                    </div>
-                    <!-- <div class="form-group">
-                        <label for="post_image">Post Image</label>
-                        <input type="file" class="form-control" name="image">
-                    </div> -->
-                    <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" value="<?php echo $username; ?>" class="form-control" name="username">
                     </div>
@@ -108,7 +93,7 @@ if (isset($_POST['edit_user'])) {
                     </div>
                     <div class="form-group">
                         <label for="user_password">Password</label>
-                        <input type="password" value="<?php echo $user_password; ?>" class="form-control" name="user_password">
+                        <input autocomplete="off" type="password" class="form-control" name="user_password">
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary" name="edit_user" value="Update Profile">

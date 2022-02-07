@@ -1,5 +1,19 @@
 <?php
 
+function confirmQuery($result)
+{
+    global $connection;
+
+    if (!$result) {
+        die("QUERY FAILED ." . mysqli_error($connection));
+    }
+}
+
+function redirect($location)
+{
+    return header("Location: " . $location);
+}
+
 function users_online()
 {
     if (isset($_GET['onlineusers'])) {
@@ -24,28 +38,22 @@ function users_online()
                 mysqli_query($connection, "UPDATE users_online SET time = '$time' WHERE session = '$session' ");
             }
 
+            // $users = mysqli_query($connection, "SELECT * FROM users_online ");
+
             $users_online_query = mysqli_query($connection, "SELECT * FROM users_online WHERE time > '$time_out' ");
+            // while ($row = mysqli_fetch_array($users)) {
+            //     echo $row['time'] . ' -- ';
+            // }
+            // while ($row = mysqli_fetch_array($users_online_query)) {
+            //     echo ' * ';
+            // }
             echo $count_user = mysqli_num_rows($users_online_query);
         }
     } // get request isset()
 
 }
 
-function confirmQuery($result)
-{
-    global $connection;
-
-    if (!$result) {
-        die("QUERY FAILED ." . mysqli_error($connection));
-    }
-}
-
 users_online();
-
-function redirect($location)
-{
-    return header("Location: " . $location);
-}
 
 function insert_categories()
 {
